@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// import { Checkbox } from "@/components/ui/checkbox"
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 
@@ -47,10 +46,19 @@ export default function CreateEvent() {
     >
   ) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    if (name === 'startDate' || name === 'endDate') {
+      // For date inputs, parse the value into a Date object
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: new Date(value),
+      }));
+    } else {
+      // For other inputs, update the value directly
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +89,7 @@ export default function CreateEvent() {
         <form onSubmit={handleSubmit} className="">
           <div className="flex justify-between">
             <div className="w-[38%]">
-              <div className="w-[323px] h-[323px]">
+              <div className="w-[323px] h-[323px] relative">
                 {formData.picture && (
                   <img
                     src={URL.createObjectURL(formData.picture)}
@@ -94,20 +102,29 @@ export default function CreateEvent() {
                     }}
                   />
                 )}
-                <div className="grid w-full items-center gap-1.5">
-                  <input
-                    type="file"
-                    accept="image/jpeg, image/png"
-                    onChange={handleFileChange}
-                    className="w-max"
-                  />
+                <div className=" w-full items-center gap-1.5 absolute bottom-4 left-[17rem] cursor-pointer">
+                  <label>
+                    <input
+                      type="file"
+                      accept="image/jpeg, image/png"
+                      onChange={handleFileChange}
+                      className="hidden"
+                    />
+                    <Image
+                      src={"/photograph.svg"}
+                      alt="desc"
+                      width={35}
+                      height={35}
+                      className="cursor-pointer"
+                    />
+                  </label>
                 </div>
               </div>
               <p className="text-white/70 font-bold mt-5 mb-1">Event Options</p>
               <div>
-                <button></button>
-                <button></button>
-                <button></button>
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
               </div>
             </div>
             <div className="w-[58%]">
@@ -115,82 +132,83 @@ export default function CreateEvent() {
                 <Input
                   className="bg-transparent outline-none border-none text-4xl font-bold text-white placeholder:text-white/50 px-0"
                   type="text"
+                  name="eventName"
                   placeholder="Event Name"
                   value={formData.eventName}
                   onChange={handleInputChange}
                   required
                 />
               </div>
-              <div className="pb-1">
-                <Label>Organizer:</Label>
-                <Input
+              <div className="flex flex-col my-3">
+                <Label>Description</Label>
+                <input
                   type="text"
+                  name="price"
+                  id="price"
+                  className="bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1 placeholder:text-sm"
+                  placeholder="description..."
+                  required
+                />
+              </div>
+              <div className="flex flex-col my-3">
+                <Label>Organizer:</Label>
+                <input
+                  type="text"
+                  name="organizer"
                   placeholder="Organizer"
                   value={formData.organizer}
                   onChange={handleInputChange}
                   required
+                  className="bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1 placeholder:text-sm"
                 />
               </div>
-              <div className="pb-1">
+              <div className="flex flex-col my-3">
                 <Label>Organizer Wallet Address</Label>
-                <Input
+                <input
                   type="text"
+                  name="organizerWalletAddress"
                   placeholder="Wallet Address"
                   value={formData.organizerWalletAddress}
                   onChange={handleInputChange}
                   required
+                  className="bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1 placeholder:text-sm"
                 />
               </div>
-              <div className="pb-1">
+              <div className="flex flex-col my-3">
                 <Label>Start Date:</Label>
-                <Input
+                <input
                   type="date"
+                  name="startDate"
                   placeholder="Event Name"
                   value={formData.startDate.toISOString().split("T")[0]}
                   onChange={handleInputChange}
                   required
+                  className="bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1"
                 />
               </div>
-              <div className="pb-1">
+              <div className="flex flex-col my-3">
                 <Label>End Date:</Label>
-                <Input
+                <input
                   type="date"
                   name="endDate"
                   value={formData.endDate.toISOString().split("T")[0]}
                   onChange={handleInputChange}
                   required
+                  className="bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1"
                 />
               </div>
-              <div className="pb-1">
+              <div className="flex flex-col my-3">
                 <Label>Location:</Label>
-                <Input
+                <input
                   type="text"
                   name="location"
                   value={formData.location}
                   onChange={handleInputChange}
                   required
+                  className="bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1"
                 />
               </div>
-              <div className="relative mt-2 rounded-md shadow-sm mb-1">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <span className="text-gray-500 sm:text-sm">
-                    <Image
-                      src={"/free_icon_1.svg"}
-                      alt="desc"
-                      width={15}
-                      height={15}
-                    />
-                  </span>
-                </div>
-                <Input
-                  type="text"
-                  name="price"
-                  id="price"
-                  className="block w-full rounded-md border-0 py-1.5 pl-7 pr-24 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="description..."
-                  required
-                />
-              </div>
+              
               <div className="mt-4 mb-2">
                 <button
                   type="submit"
