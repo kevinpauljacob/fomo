@@ -35,7 +35,7 @@ export default function Home() {
             memorable event today.
           </p>
           <Link
-            href="/auth/signup"
+            href="/auth/signin"
             className="bg-white text-black font-semibold text-lg rounded-lg w-max px-4 py-2 mt-8"
           >
             Create Your First Event

@@ -18,6 +18,7 @@ export default function SignIn() {
             <input
               type="email"
               id="email"
+              autoComplete="off"
               className="bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1"
             />
           </div>
@@ -31,6 +32,7 @@ export default function SignIn() {
             <input
               type="password"
               id="password"
+              autoComplete="off"
               className="bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1"
             />
           </div>
