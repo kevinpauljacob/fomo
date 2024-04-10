@@ -9,63 +9,25 @@ export interface Event extends Document {
   endDate: Date;
   location: string;
   capacity: number;
-  approval: boolean;
-  ticketId: string;
+  eventId: string;
   ticketPrice: number;
-  nftIpfsUri: string;
+  eventBanner: Buffer;
 }
 
-const eventSchema: Schema = new Schema({
-  eventName: {
-    type: String,
-    required: true,
-  },
-  organizer: {
-    type: String,
-    required: true,
-  },
-  organizerWalletAddress: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  startDate: {
-    type: Date,
-    required: true,
-  },
-  endDate: {
-    type: Date,
-    required: true,
-  },
-  location: {
-    type: String,
-    required: true,
-  },
-  capacity: {
-    type: Number,
-    required: true,
-  },
-  approval: {
-    type: Boolean,
-    default: false,
-  },
-  ticketId: {
-    type: String,
-    required: true,
-  },
-  ticketPrice: {
-    type: Number,
-    required: true,
-  },
-  nftIpfsUri: {
-    type: String,
-    required: true,
-  },
+const EventSchema = new Schema<Event>({
+  eventName: { type: String, required: true },
+  organizer: { type: String, required: true },
+  organizerWalletAddress: { type: String, required: true },
+  description: { type: String, required: true },
+  startDate: { type: Date, required: true },
+  endDate: { type: Date, required: true },
+  location: { type: String, required: true },
+  capacity: { type: Number, required: true },
+  eventId: { type: String, required: true },
+  ticketPrice: { type: Number, required: true },
+  eventBanner: { type: Buffer, required: true },
 });
 
-const EventModel = mongoose.model<Event>("Event", eventSchema);
+const EventModel = mongoose.model<Event>("Event", EventSchema);
 
 export default EventModel;
