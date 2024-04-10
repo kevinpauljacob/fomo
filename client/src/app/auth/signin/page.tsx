@@ -1,5 +1,5 @@
 "use client";
-import { useState, useContext, ChangeEvent, FormEvent } from "react";
+import { useState, useContext, ChangeEvent, FormEvent, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
@@ -52,6 +52,13 @@ export default function SignIn() {
       toast.error(error.response.data.message, { position: "top-right" });
     }
   };
+
+  useEffect(() => {
+    if (user.isLoggedIn) {
+      router.push("/events");
+    }
+  }, [user.isLoggedIn, router]);
+
   return (
     <main className="flex items-center justify-center h-[calc(100vh-141px)] max-w-[640px] mx-auto">
       <div className="w-[350px] bg-black/10 border border-white/10 rounded-lg px-5 py-7">

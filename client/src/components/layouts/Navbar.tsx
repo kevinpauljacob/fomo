@@ -1,11 +1,13 @@
 "use client";
 import { useContext } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { UserContext } from "@/context/userContext";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 export default function Navbar() {
   const { user } = useContext(UserContext);
+  const router = useRouter();
   return (
     <div className="flex items-center justify-between mx-4 my-2">
       <Link href="/" className="flex items-center cursor-pointer">
@@ -110,12 +112,14 @@ export default function Navbar() {
             </div>
           </div>
         ) : (
-          <Link
-            href="/auth/signin"
-            className="bg-white/10 rounded-full px-3 py-1"
-          >
-            Sign In
-          </Link>
+          router.pathname !== "/auth/signin" && (
+            <Link
+              href="/auth/signin"
+              className="bg-white/10 rounded-full px-3 py-1"
+            >
+              Sign In
+            </Link>
+          )
         )}
       </div>
     </div>
