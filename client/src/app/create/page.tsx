@@ -1,30 +1,29 @@
 "use client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// import { Checkbox } from "@/components/ui/checkbox"
-import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
-import { use, useState } from "react";
+interface EventData {
+  eventName: string;
+  organizer: string;
+  organizerWalletAddress: string;
+  description: string;
+  startDate: Date;
+  endDate: Date;
+  location: string;
+  capacity: number;
+  approval: boolean;
+  ticketId: string;
+  ticketPrice: number;
+  nftIpfsUri: string;
+  picture: File | null;
+}
 
 export default function CreateEvent() {
-  interface EventData {
-    eventName: string;
-    organizer: string;
-    organizerWalletAddress: string;
-    description: string;
-    startDate: Date;
-    endDate: Date;
-    location: string;
-    capacity: number;
-    approval: boolean;
-    ticketId: string;
-    ticketPrice: number;
-    nftIpfsUri: string;
-    picture: File | null;
-  }
-
+  const router = useRouter();
   const [formData, setFormData] = useState<EventData>({
     eventName: "",
     organizer: "",
@@ -68,8 +67,30 @@ export default function CreateEvent() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    try {
+      const response = await fetch("/api/events/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create event");
+      }
+
+      const responseData = await response.json();
+      console.log(responseData);
+      toast.success("Event created successfully", { position: "top-right" });
+      router.push("/events");
+    } catch (error) {
+      console.error("Error creating event:", error);
+      toast.error("Failed to create event", { position: "top-right" });
+    }
   };
 
   return (
