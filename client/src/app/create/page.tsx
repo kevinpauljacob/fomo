@@ -122,9 +122,45 @@ export default function CreateEvent() {
               </div>
               <p className="text-white/70 font-bold mt-5 mb-1">Event Options</p>
               <div>
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
+                <div className="flex justify-between bg-black/20 autofill-none outline-none border border-white/20 rounded-lg px-3 py-1.5 mt-1">
+                  <Label className="flex justify-center items-center">Ticket Price</Label>
+                  <div className="flex gap-2">
+                    <button className="flex gap-2 justify-center items-center">
+                      <p className="text-white/50">Edit</p>
+                      <Image
+                        src={"/pencilo.svg"}
+                        alt="edit"
+                        width={15}
+                        height={15}
+                        className="cursor-pointer"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div className="flex justify-between bg-black/20 autofill-none outline-none border border-white/20 rounded-lg px-3 py-1.5 mt-1">
+                  <Label className="flex justify-center items-center">Required</Label>
+                  <div className="flex justify-center items-center">
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" value="" className="sr-only peer" />
+                      <div className="group peer ring-0 bg-rose-400  rounded-full outline-none duration-300 after:duration-300 w-11 h-6 shadow-md peer-checked:bg-emerald-500  peer-focus:outline-none  after:rounded-full after:absolute after:bg-gray-50 after:outline-none after:h-4 after:w-4 after:top-1 after:left-1 after:flex after:justify-center after:items-center peer-checked:after:translate-x-5  peer-hover:after:scale-95"></div>
+                    </label>
+                  </div>
+                </div>
+                <div className="flex justify-between bg-black/20 autofill-none outline-none border border-white/20 rounded-lg px-3 py-1.5 mt-1">
+                  <Label className="flex justify-center items-center">Capacity</Label>
+                  <div className="flex gap-2">
+                    <button className="flex gap-2 justify-center items-center">
+                      <p className="text-white/50">Unlimited</p>
+                      <Image
+                        src={"/pencilo.svg"}
+                        alt="edit"
+                        width={15}
+                        height={15}
+                        className="cursor-pointer"
+                      />
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="w-[58%]">
