@@ -4,6 +4,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 import { use, useState } from "react";
 
@@ -122,10 +131,12 @@ export default function CreateEvent() {
               </div>
               <p className="text-white/70 font-bold mt-5 mb-1">Event Options</p>
               <div>
-                <div className="flex justify-between bg-black/20 autofill-none outline-none border border-white/20 rounded-lg px-3 py-1.5 mt-1">
+                <div className="flex justify-between bg-black/20 autofill-none outline-none border border-white/20 rounded-lg px-3 py-1.5 mt-1 h-2/3">
                   <Label className="flex justify-center items-center">Ticket Price</Label>
-                  <div className="flex gap-2">
-                    <button className="flex gap-2 justify-center items-center">
+                  <div className="flex gap-2 justify-center items-center">
+                  <Dialog>
+                    <DialogTrigger asChild className="bg-black/20 h-5/6">
+                      <Button variant="outline" className="gap-2 border-none bg-transparent hover:bg-transparent p-1">
                       <p className="text-white/50">Edit</p>
                       <Image
                         src={"/pencilo.svg"}
@@ -134,7 +145,33 @@ export default function CreateEvent() {
                         height={15}
                         className="cursor-pointer"
                       />
-                    </button>
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px] bg-gray-950 border-none">
+                      <DialogHeader>
+                        <DialogTitle>Edit Price</DialogTitle>
+                        <DialogDescription>
+                          Make changes to your Price here. Click save when you're done.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="name" className="text-right">
+                            Name
+                          </Label>
+                          <Input
+                            id="name"
+                            defaultValue=""
+                            className="col-span-3 bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1 placeholder:text-sm"
+                          />
+                        </div>
+                      
+                      </div>
+                      <DialogFooter>
+                        <Button type="submit">Save changes</Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
                   </div>
                 </div>
                 <div className="flex justify-between bg-black/20 autofill-none outline-none border border-white/20 rounded-lg px-3 py-1.5 mt-1">
@@ -148,8 +185,10 @@ export default function CreateEvent() {
                 </div>
                 <div className="flex justify-between bg-black/20 autofill-none outline-none border border-white/20 rounded-lg px-3 py-1.5 mt-1">
                   <Label className="flex justify-center items-center">Capacity</Label>
-                  <div className="flex gap-2">
-                    <button className="flex gap-2 justify-center items-center">
+                  <div className="flex gap-2 justify-center items-center">
+                  <Dialog>
+                    <DialogTrigger asChild className="bg-black/20 h-5/6">
+                      <Button variant="outline" className="gap-2 border-none bg-transparent hover:bg-transparent p-1">
                       <p className="text-white/50">Unlimited</p>
                       <Image
                         src={"/pencilo.svg"}
@@ -158,7 +197,33 @@ export default function CreateEvent() {
                         height={15}
                         className="cursor-pointer"
                       />
-                    </button>
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px] bg-gray-950 border-none">
+                      <DialogHeader>
+                        <DialogTitle>Edit Capacity</DialogTitle>
+                        <DialogDescription>
+                          Make changes to your Event Capacity here. Click save when you're done.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="name" className="text-right">
+                            Name
+                          </Label>
+                          <Input
+                            id="name"
+                            defaultValue="0"
+                            className="col-span-3 bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1 placeholder:text-sm"
+                          />
+                        </div>
+                      
+                      </div>
+                      <DialogFooter>
+                        <Button type="submit">Save changes</Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
                   </div>
                 </div>
               </div>
