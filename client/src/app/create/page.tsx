@@ -157,7 +157,7 @@ export default function CreateEvent() {
                       <div className="grid gap-4 py-4">
                         <div className="grid grid-cols-4 items-center gap-4">
                           <Label htmlFor="name" className="text-right">
-                            Name
+                            Price
                           </Label>
                           <Input
                             id="name"
@@ -209,7 +209,7 @@ export default function CreateEvent() {
                       <div className="grid gap-4 py-4">
                         <div className="grid grid-cols-4 items-center gap-4">
                           <Label htmlFor="name" className="text-right">
-                            Name
+                            Capacity
                           </Label>
                           <Input
                             id="name"
