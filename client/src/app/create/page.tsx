@@ -112,7 +112,7 @@ export default function CreateEvent() {
                     }}
                   />
                 )}
-                <div className=" w-full items-center gap-1.5 absolute bottom-4 left-[17rem] cursor-pointer">
+                <div className="items-center gap-1.5 absolute bottom-4 left-[17rem] cursor-pointer">
                   <label>
                     <input
                       type="file"
