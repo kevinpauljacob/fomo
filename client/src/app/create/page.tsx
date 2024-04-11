@@ -14,25 +14,24 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import { toast } from "react-toastify";
 
-export default function CreateEvent() {
-  interface EventData {
-    eventName: string;
-    organizer: string;
-    organizerWalletAddress: string;
-    description: string;
-    startDate: Date;
-    endDate: Date;
-    location: string;
-    capacity: number;
-    approval: boolean;
-    ticketId: string;
-    ticketPrice: number;
-    nftIpfsUri: string;
-    picture: File | null;
-  }
+interface EventData {
+  eventName: string;
+  organizer: string;
+  organizerWalletAddress: string;
+  description: string;
+  startDate: Date;
+  endDate: Date;
+  location: string;
+  capacity: number;
+  approval: boolean;
+  ticketId: string;
+  ticketPrice: number;
+  nftIpfsUri: string;
+  picture: File | null;
+}
 
 export default function CreateEvent() {
   const router = useRouter();
@@ -58,7 +57,7 @@ export default function CreateEvent() {
     >
   ) => {
     const { name, value } = e.target;
-    if (name === 'startDate' || name === 'endDate') {
+    if (name === "startDate" || name === "endDate") {
       // For date inputs, parse the value into a Date object
       setFormData((prevData) => ({
         ...prevData,
@@ -157,98 +156,114 @@ export default function CreateEvent() {
               <p className="text-white/70 font-bold mt-5 mb-1">Event Options</p>
               <div>
                 <div className="flex justify-between bg-black/20 autofill-none outline-none border border-white/20 rounded-lg px-3 py-1.5 mt-1 h-2/3">
-                  <Label className="flex justify-center items-center">Ticket Price</Label>
+                  <Label className="flex justify-center items-center">
+                    Ticket Price
+                  </Label>
                   <div className="flex gap-2 justify-center items-center">
-                  <Dialog>
-                    <DialogTrigger asChild className="bg-black/20 h-5/6">
-                      <Button variant="outline" className="gap-2 border-none bg-transparent hover:bg-transparent p-1">
-                      <p className="text-white/50">Edit</p>
-                      <Image
-                        src={"/pencilo.svg"}
-                        alt="edit"
-                        width={15}
-                        height={15}
-                        className="cursor-pointer"
-                      />
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px] bg-gray-950 border-none">
-                      <DialogHeader>
-                        <DialogTitle>Edit Price</DialogTitle>
-                        <DialogDescription>
-                          Make changes to your Price here. Click save when you're done.
-                        </DialogDescription>
-                      </DialogHeader>
-                      <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <Label htmlFor="name" className="text-right">
-                            Price
-                          </Label>
-                          <Input
-                            id="name"
-                            defaultValue=""
-                            className="col-span-3 bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1 placeholder:text-sm"
+                    <Dialog>
+                      <DialogTrigger asChild className="bg-black/20 h-5/6">
+                        <Button
+                          variant="outline"
+                          className="gap-2 border-none bg-transparent hover:bg-transparent p-1"
+                        >
+                          <p className="text-white/50">Edit</p>
+                          <Image
+                            src={"/pencilo.svg"}
+                            alt="edit"
+                            width={15}
+                            height={15}
+                            className="cursor-pointer"
                           />
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[425px] bg-gray-950 border-none">
+                        <DialogHeader>
+                          <DialogTitle>Edit Price</DialogTitle>
+                          <DialogDescription>
+                            Make changes to your Price here. Click save when
+                            you're done.
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                          <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="name" className="text-right">
+                              Price
+                            </Label>
+                            <Input
+                              id="name"
+                              defaultValue=""
+                              className="col-span-3 bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1 placeholder:text-sm"
+                            />
+                          </div>
                         </div>
-                      
-                      </div>
-                      <DialogFooter>
-                        <Button type="submit">Save changes</Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
+                        <DialogFooter>
+                          <Button type="submit">Save changes</Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
                   </div>
                 </div>
                 <div className="flex justify-between bg-black/20 autofill-none outline-none border border-white/20 rounded-lg px-3 py-1.5 mt-1">
-                  <Label className="flex justify-center items-center">Required</Label>
+                  <Label className="flex justify-center items-center">
+                    Required
+                  </Label>
                   <div className="flex justify-center items-center">
                     <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" value="" className="sr-only peer" />
+                      <input
+                        type="checkbox"
+                        value=""
+                        className="sr-only peer"
+                      />
                       <div className="group peer ring-0 bg-rose-400  rounded-full outline-none duration-300 after:duration-300 w-11 h-6 shadow-md peer-checked:bg-emerald-500  peer-focus:outline-none  after:rounded-full after:absolute after:bg-gray-50 after:outline-none after:h-4 after:w-4 after:top-1 after:left-1 after:flex after:justify-center after:items-center peer-checked:after:translate-x-5  peer-hover:after:scale-95"></div>
                     </label>
                   </div>
                 </div>
                 <div className="flex justify-between bg-black/20 autofill-none outline-none border border-white/20 rounded-lg px-3 py-1.5 mt-1">
-                  <Label className="flex justify-center items-center">Capacity</Label>
+                  <Label className="flex justify-center items-center">
+                    Capacity
+                  </Label>
                   <div className="flex gap-2 justify-center items-center">
-                  <Dialog>
-                    <DialogTrigger asChild className="bg-black/20 h-5/6">
-                      <Button variant="outline" className="gap-2 border-none bg-transparent hover:bg-transparent p-1">
-                      <p className="text-white/50">Unlimited</p>
-                      <Image
-                        src={"/pencilo.svg"}
-                        alt="edit"
-                        width={15}
-                        height={15}
-                        className="cursor-pointer"
-                      />
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px] bg-gray-950 border-none">
-                      <DialogHeader>
-                        <DialogTitle>Edit Capacity</DialogTitle>
-                        <DialogDescription>
-                          Make changes to your Event Capacity here. Click save when you're done.
-                        </DialogDescription>
-                      </DialogHeader>
-                      <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <Label htmlFor="name" className="text-right">
-                            Capacity
-                          </Label>
-                          <Input
-                            id="name"
-                            defaultValue="0"
-                            className="col-span-3 bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1 placeholder:text-sm"
+                    <Dialog>
+                      <DialogTrigger asChild className="bg-black/20 h-5/6">
+                        <Button
+                          variant="outline"
+                          className="gap-2 border-none bg-transparent hover:bg-transparent p-1"
+                        >
+                          <p className="text-white/50">Unlimited</p>
+                          <Image
+                            src={"/pencilo.svg"}
+                            alt="edit"
+                            width={15}
+                            height={15}
+                            className="cursor-pointer"
                           />
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[425px] bg-gray-950 border-none">
+                        <DialogHeader>
+                          <DialogTitle>Edit Capacity</DialogTitle>
+                          <DialogDescription>
+                            Make changes to your Event Capacity here. Click save
+                            when you're done.
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                          <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="name" className="text-right">
+                              Capacity
+                            </Label>
+                            <Input
+                              id="name"
+                              defaultValue="0"
+                              className="col-span-3 bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1 placeholder:text-sm"
+                            />
+                          </div>
                         </div>
-                      
-                      </div>
-                      <DialogFooter>
-                        <Button type="submit">Save changes</Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
+                        <DialogFooter>
+                          <Button type="submit">Save changes</Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
                   </div>
                 </div>
               </div>
@@ -334,7 +349,7 @@ export default function CreateEvent() {
                   className="bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1"
                 />
               </div>
-              
+
               <div className="mt-4 mb-2">
                 <button
                   type="submit"
