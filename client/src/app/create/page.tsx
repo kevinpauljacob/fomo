@@ -2,9 +2,18 @@
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// import { Checkbox } from "@/components/ui/checkbox"
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
 
 import { use, useState } from "react";
 
@@ -47,10 +56,19 @@ export default function CreateEvent() {
     >
   ) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    if (name === 'startDate' || name === 'endDate') {
+      // For date inputs, parse the value into a Date object
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: new Date(value),
+      }));
+    } else {
+      // For other inputs, update the value directly
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +99,7 @@ export default function CreateEvent() {
         <form onSubmit={handleSubmit} className="">
           <div className="flex justify-between">
             <div className="w-[38%]">
-              <div className="w-[323px] h-[323px]">
+              <div className="w-[323px] h-[323px] relative">
                 {formData.picture && (
                   <img
                     src={URL.createObjectURL(formData.picture)}
@@ -94,20 +112,121 @@ export default function CreateEvent() {
                     }}
                   />
                 )}
-                <div className="grid w-full items-center gap-1.5">
-                  <input
-                    type="file"
-                    accept="image/jpeg, image/png"
-                    onChange={handleFileChange}
-                    className="w-max"
-                  />
+                <div className="items-center gap-1.5 absolute bottom-4 left-[17rem] cursor-pointer">
+                  <label>
+                    <input
+                      type="file"
+                      accept="image/jpeg, image/png"
+                      onChange={handleFileChange}
+                      className="hidden"
+                    />
+                    <Image
+                      src={"/photograph.svg"}
+                      alt="desc"
+                      width={35}
+                      height={35}
+                      className="cursor-pointer"
+                    />
+                  </label>
                 </div>
               </div>
               <p className="text-white/70 font-bold mt-5 mb-1">Event Options</p>
               <div>
-                <button></button>
-                <button></button>
-                <button></button>
+                <div className="flex justify-between bg-black/20 autofill-none outline-none border border-white/20 rounded-lg px-3 py-1.5 mt-1 h-2/3">
+                  <Label className="flex justify-center items-center">Ticket Price</Label>
+                  <div className="flex gap-2 justify-center items-center">
+                  <Dialog>
+                    <DialogTrigger asChild className="bg-black/20 h-5/6">
+                      <Button variant="outline" className="gap-2 border-none bg-transparent hover:bg-transparent p-1">
+                      <p className="text-white/50">Edit</p>
+                      <Image
+                        src={"/pencilo.svg"}
+                        alt="edit"
+                        width={15}
+                        height={15}
+                        className="cursor-pointer"
+                      />
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px] bg-gray-950 border-none">
+                      <DialogHeader>
+                        <DialogTitle>Edit Price</DialogTitle>
+                        <DialogDescription>
+                          Make changes to your Price here. Click save when you're done.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="name" className="text-right">
+                            Price
+                          </Label>
+                          <Input
+                            id="name"
+                            defaultValue=""
+                            className="col-span-3 bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1 placeholder:text-sm"
+                          />
+                        </div>
+                      
+                      </div>
+                      <DialogFooter>
+                        <Button type="submit">Save changes</Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                  </div>
+                </div>
+                <div className="flex justify-between bg-black/20 autofill-none outline-none border border-white/20 rounded-lg px-3 py-1.5 mt-1">
+                  <Label className="flex justify-center items-center">Required</Label>
+                  <div className="flex justify-center items-center">
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" value="" className="sr-only peer" />
+                      <div className="group peer ring-0 bg-rose-400  rounded-full outline-none duration-300 after:duration-300 w-11 h-6 shadow-md peer-checked:bg-emerald-500  peer-focus:outline-none  after:rounded-full after:absolute after:bg-gray-50 after:outline-none after:h-4 after:w-4 after:top-1 after:left-1 after:flex after:justify-center after:items-center peer-checked:after:translate-x-5  peer-hover:after:scale-95"></div>
+                    </label>
+                  </div>
+                </div>
+                <div className="flex justify-between bg-black/20 autofill-none outline-none border border-white/20 rounded-lg px-3 py-1.5 mt-1">
+                  <Label className="flex justify-center items-center">Capacity</Label>
+                  <div className="flex gap-2 justify-center items-center">
+                  <Dialog>
+                    <DialogTrigger asChild className="bg-black/20 h-5/6">
+                      <Button variant="outline" className="gap-2 border-none bg-transparent hover:bg-transparent p-1">
+                      <p className="text-white/50">Unlimited</p>
+                      <Image
+                        src={"/pencilo.svg"}
+                        alt="edit"
+                        width={15}
+                        height={15}
+                        className="cursor-pointer"
+                      />
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px] bg-gray-950 border-none">
+                      <DialogHeader>
+                        <DialogTitle>Edit Capacity</DialogTitle>
+                        <DialogDescription>
+                          Make changes to your Event Capacity here. Click save when you're done.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="name" className="text-right">
+                            Capacity
+                          </Label>
+                          <Input
+                            id="name"
+                            defaultValue="0"
+                            className="col-span-3 bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1 placeholder:text-sm"
+                          />
+                        </div>
+                      
+                      </div>
+                      <DialogFooter>
+                        <Button type="submit">Save changes</Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="w-[58%]">
@@ -115,82 +234,83 @@ export default function CreateEvent() {
                 <Input
                   className="bg-transparent outline-none border-none text-4xl font-bold text-white placeholder:text-white/50 px-0"
                   type="text"
+                  name="eventName"
                   placeholder="Event Name"
                   value={formData.eventName}
                   onChange={handleInputChange}
                   required
                 />
               </div>
-              <div className="pb-1">
-                <Label>Organizer:</Label>
-                <Input
+              <div className="flex flex-col my-3">
+                <Label>Description</Label>
+                <input
                   type="text"
+                  name="price"
+                  id="price"
+                  className="bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1 placeholder:text-sm"
+                  placeholder="description..."
+                  required
+                />
+              </div>
+              <div className="flex flex-col my-3">
+                <Label>Organizer:</Label>
+                <input
+                  type="text"
+                  name="organizer"
                   placeholder="Organizer"
                   value={formData.organizer}
                   onChange={handleInputChange}
                   required
+                  className="bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1 placeholder:text-sm"
                 />
               </div>
-              <div className="pb-1">
+              <div className="flex flex-col my-3">
                 <Label>Organizer Wallet Address</Label>
-                <Input
+                <input
                   type="text"
+                  name="organizerWalletAddress"
                   placeholder="Wallet Address"
                   value={formData.organizerWalletAddress}
                   onChange={handleInputChange}
                   required
+                  className="bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1 placeholder:text-sm"
                 />
               </div>
-              <div className="pb-1">
+              <div className="flex flex-col my-3">
                 <Label>Start Date:</Label>
-                <Input
+                <input
                   type="date"
+                  name="startDate"
                   placeholder="Event Name"
                   value={formData.startDate.toISOString().split("T")[0]}
                   onChange={handleInputChange}
                   required
+                  className="bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1"
                 />
               </div>
-              <div className="pb-1">
+              <div className="flex flex-col my-3">
                 <Label>End Date:</Label>
-                <Input
+                <input
                   type="date"
                   name="endDate"
                   value={formData.endDate.toISOString().split("T")[0]}
                   onChange={handleInputChange}
                   required
+                  className="bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1"
                 />
               </div>
-              <div className="pb-1">
+              <div className="flex flex-col my-3">
                 <Label>Location:</Label>
-                <Input
+                <input
                   type="text"
                   name="location"
                   value={formData.location}
                   onChange={handleInputChange}
                   required
+                  className="bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1"
                 />
               </div>
-              <div className="relative mt-2 rounded-md shadow-sm mb-1">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <span className="text-gray-500 sm:text-sm">
-                    <Image
-                      src={"/free_icon_1.svg"}
-                      alt="desc"
-                      width={15}
-                      height={15}
-                    />
-                  </span>
-                </div>
-                <Input
-                  type="text"
-                  name="price"
-                  id="price"
-                  className="block w-full rounded-md border-0 py-1.5 pl-7 pr-24 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="description..."
-                  required
-                />
-              </div>
+              
               <div className="mt-4 mb-2">
                 <button
                   type="submit"
