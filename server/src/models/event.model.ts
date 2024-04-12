@@ -11,7 +11,7 @@ export interface Event extends Document {
   capacity: number;
   eventId: string;
   ticketPrice: number;
-  eventBanner: Buffer;
+  imgUri: string;
 }
 
 const EventSchema = new Schema<Event>({
@@ -25,7 +25,7 @@ const EventSchema = new Schema<Event>({
   capacity: { type: Number, required: true },
   eventId: { type: String, required: true },
   ticketPrice: { type: Number, required: true },
-  eventBanner: { type: Buffer, required: true },
+  imgUri: { type: String, required: true },
 });
 
 const EventModel = mongoose.model<Event>("Event", EventSchema);
