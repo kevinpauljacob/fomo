@@ -25,16 +25,20 @@
     "clsx": "^2.1.0",
     "lucide-react": "^0.344.0",
     "next": "14.1.1",
+    "qrcode": "^1.5.3",
     "react": "^18",
     "react-dom": "^18",
     "react-toastify": "^10.0.5",
     "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/qrcode": "^1.5.5",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.1.1",
