@@ -6,7 +6,7 @@ import logger from "./utils/logger";
 require("dotenv").config();
 
 const app: Application = express();
-const PORT = process.env.port || 3333;
+const PORT = process.env.PORT || 3333;
 
 connect();
 

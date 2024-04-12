@@ -9,9 +9,14 @@ import { toast } from "react-toastify";
 export default function SignIn() {
   const router = useRouter();
   const { user, setUser } = useContext(UserContext);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -29,8 +34,9 @@ export default function SignIn() {
     }
     try {
       const response = await axios.post(
-        "http://localhost:3333/api/auth/login",
+        "http://localhost:3333/api/auth/register",
         {
+          name,
           email,
           password,
         }
@@ -42,11 +48,11 @@ export default function SignIn() {
         isLoggedIn: true,
         token: token,
       });
-      console.log("Login successful. Token:", token);
-      toast.success("Login successful", { position: "bottom-right" });
+      console.log("Register successful. Token:", token);
+      toast.success("Register successful", { position: "bottom-right" });
       router.push("/events");
     } catch (error: any) {
-      console.error("Login failed:", error.response.data.message);
+      console.error("Register failed:", error.response.data.message);
       setError(error.response.data.message);
       toast.error(error.response.data.message, { position: "bottom-right" });
     }
@@ -63,9 +69,24 @@ export default function SignIn() {
       <div className="w-[350px] bg-black/10 border border-white/10 rounded-lg px-5 py-7">
         <h1 className="text-2xl text-white font-semibold">Welcome to Fomo</h1>
         <p className="text-sm text-white text-opacity-80 font-semibold mt-1">
-          Please sign in below
+          Please sign up below
         </p>
         <form autoComplete="off" onSubmit={handleSubmit}>
+          <div className="flex flex-col my-3">
+            <label
+              htmlFor="name"
+              className="text-sm text-white text-opacity-80 font-semibold"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={handleNameChange}
+              className="bg-black/20 autofill-none outline-none border border-white/20 focus:border-white/50 focus:bg-black/30 rounded-lg px-3 py-1.5 mt-1"
+            />
+          </div>
           <div className="flex flex-col my-3">
             <label
               htmlFor="email"
@@ -103,7 +124,7 @@ export default function SignIn() {
             type="submit"
             className="bg-white text-black font-bold text-md hover:bg-white/80 transition-all w-full rounded-lg p-2 mt-2"
           >
-            Sign In
+            Sign Up
           </button>
         </form>
         {error && <p className="text-red-500">{error}</p>}

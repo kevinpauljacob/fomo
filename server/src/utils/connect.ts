@@ -3,7 +3,7 @@ import logger from "./logger";
 require("dotenv").config();
 
 async function connect() {
-  const dbUri = process.env.dbUri;
+  const dbUri = process.env.DB_URI;
 
   if (!dbUri) {
     logger.error(
